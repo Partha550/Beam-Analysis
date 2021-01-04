@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import matplotlib.pyplot as plt
 
 def sfd_bmd_ssb(length, support=(None,None), forces=None, steps=100, zoom=100, colors=['#00FF00','#00FFFF','#FF00FF']):
@@ -211,36 +205,12 @@ def sfd_bmd_ssb(length, support=(None,None), forces=None, steps=100, zoom=100, c
 
     def figure_plot (num, x, y, x_label=None,color=colors):
         plt.figure(num,figsize=(15,6))
-        plt.plot(x, y, color[num-1],animated=True)
+        plt.plot(x, y, color[num-1])
         plt.plot([0,length],[0,0],ls='-.',lw=1,c='k')
         plt.xlabel(x_label)
         plt.grid(which='both')
+        plt.show()
 
     figure_plot(1,beam_length,ld_y,'Load Distribution')
     figure_plot(2,beam_length,sfd_y,'Shear Force Diagram')
     figure_plot(3,beam_length,bmd_y,'Bending Moment Diagram')
-
-
-# In[6]:
-
-
-sfd_bmd_ssb(length=5,support=(.5,1.5),forces=[(5.5,1)],steps=400)
-
-
-# In[3]:
-
-
-sfd_bmd_ssb(length=2,support=(0,2),forces=[(3.5,.5,1.5)],steps=200)
-
-
-# In[4]:
-
-
-sfd_bmd_ssb(length=2,support=(0,2),forces=[ ('m',3,8,.501,1.501)],steps=200)
-
-
-# In[ ]:
-
-
-
-
