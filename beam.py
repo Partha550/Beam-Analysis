@@ -27,15 +27,16 @@ def sfd_bmd_ssb(length, support=(None,None), forces=None, steps=100, zoom=100, c
                 load_distances.append(ele[1])
                 ext_moments.append(ele[0]*ele[1])
                 all_dist_val.append(ele[1])
+            else: raise TypeError ("Unknown type of force or moment")
         elif len(ele)==3:
-            if isinstance(ele[0], (int, float)): # If the load is Uniformly distributed load.
+            if isinstance(ele[0], (int, float)): # If it is Uniformly distributed load.
                 equivalent_force = ele[0]*(ele[2] - ele[1])
                 cog = sum(ele[1:3])/2
                 ext_loads.append(equivalent_force)
                 load_distances.append(cog)
                 ext_moments.append(equivalent_force*cog)
                 all_dist_val.extend([ele[1],ele[2]])
-            elif ele[0]=='m':   # For concentrated moments.
+            elif ele[0]=='m':   # If it is concentrated moment.
                 point_moments.append(ele[1])
                 all_dist_val.append(ele[2])
             else: raise TypeError ("Unknown type of force or moment")
@@ -209,8 +210,15 @@ def sfd_bmd_ssb(length, support=(None,None), forces=None, steps=100, zoom=100, c
         plt.plot([0,length],[0,0],ls='-.',lw=1,c='k')
         plt.xlabel(x_label)
         plt.grid(which='both')
-        plt.show()
+        path = f'Figures/{x_label}' 
+        plt.savefig(fname=path)
 
-    figure_plot(1,beam_length,ld_y,'Load Distribution')
-    figure_plot(2,beam_length,sfd_y,'Shear Force Diagram')
-    figure_plot(3,beam_length,bmd_y,'Bending Moment Diagram')
+    figure_plot(1,beam_length,ld_y,'l_d')
+    figure_plot(2,beam_length,sfd_y,'s_f_d')
+    figure_plot(3,beam_length,bmd_y,'b_m_d')
+   
+   
+
+    
+# if __name__ == "__main__":
+#     sfd_bmd_ssb(length=377,forces=[[35,34],[23,76],[23,45]])
